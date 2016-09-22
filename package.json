@@ -8,11 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MoinPansare/ChatAppServer.git"
+    "url": "git+https://Mo1n@bitbucket.org/Mo1n/chat-app.git"
   },
   "author": "Moin",
   "license": "ISC",
-  "homepage": "https://github.com/MoinPansare/ChatAppServer/blob/master/README.md",
+  "homepage": "",
   "dependencies": {
     "express": "^4.14.0"
   }
