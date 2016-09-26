@@ -1,60 +1,31 @@
 var plan = require('flightplan');
-
 var appName = 'ChatApp';
-// var username = 'moin';
 var username = 'root';
-var startFile = 'index.js';
-var password = "appleios";
+var startFile = 'bin/www';
 
 var tmpDir = appName+'-' + new Date().getTime();
-
 // configuration
-// plan.target('staging', [
-//   {
-//     host: '178.62.10.40',
-//     username: username,
-//     password : password,
-//     agent: process.env.SSH_AUTH_SOCK
-//   }
-// ]);
-// plan.target('staging', [
-//   {
-//     host: '178.62.84.115',
-//     username: username,
-//     password : password,
-//     agent: process.env.SSH_AUTH_SOCK
-//   }
-// ]);
+plan.target('production', {
+  host: '139.59.10.251',
+  username: username,
+  password : "appleios",
+  agent: process.env.SSH_AUTH_SOCK
+});
 
 // plan.target('production', [
 //   {
-//     host: '178.62.10.40',
-//     username: username,
-//     password : password,
+//     host: 'www1.example.com',
+//     username: 'pstadler',
 //     agent: process.env.SSH_AUTH_SOCK
 //   },
-// //add in another server if you have more than one
-// // {
-// //   host: '104.131.93.216',
-// //   username: username,
-// //   agent: process.env.SSH_AUTH_SOCK
-// // }
+//   {
+//     host: 'www2.example.com',
+//     username: 'pstadler',
+//     agent: process.env.SSH_AUTH_SOCK
+//   }
 // ]);
 
-plan.target('production', [
-  {
-    host: '139.59.10.251',
-    username: username,
-    password : password,
-    agent: process.env.SSH_AUTH_SOCK
-  },
-//add in another server if you have more than one
-// {
-//   host: '104.131.93.216',
-//   username: username,
-//   agent: process.env.SSH_AUTH_SOCK
-// }
-]);
+var tmpDir = 'example-com-' + new Date().getTime();
 
 // run commands on localhost
 plan.local(function(local) {
@@ -68,7 +39,7 @@ plan.local(function(local) {
   local.transfer(filesToCopy, '/tmp/' + tmpDir);
 });
 
-// run commands on remote hosts (destinations)
+// run commands on the target's remote hosts
 plan.remote(function(remote) {
   remote.log('Move folder to root');
   remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
@@ -82,3 +53,8 @@ plan.remote(function(remote) {
   remote.exec('forever stop ~/'+appName+'/'+startFile, {failsafe: true});
   remote.exec('forever start ~/'+appName+'/'+startFile);
 });
+
+// run more commands on localhost afterwards
+plan.local(function(local) { /* ... */ });
+// ...or on remote hosts
+plan.remote(function(remote) { /* ... */ });

@@ -14,7 +14,11 @@
   "license": "ISC",
   "homepage": "",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect": "^3.5.0",
     "express": "^4.14.0",
+    "multer": "^1.2.0",
+    "node-gcm": "^0.14.4",
     "socket.io": "^1.4.8"
   },
   "devDependencies": {
