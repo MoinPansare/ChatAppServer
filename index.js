@@ -50,6 +50,8 @@ var user = {
   id : "",
 };
 
+
+
 var userArray = [];
 
 io.on('connection',function(socket){
